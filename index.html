@@ -1,200 +1,281 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bekarys Bio</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E. C. H. O. Safe Path | Безопасность превыше всего</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f7fa;
+            --card: #ffffff;
+            --text: #1a1f26;
+            --accent: #2563eb;
+            --sub-text: #64748b;
+            --success: #10b981;
+        }
 
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background: url('https://abrakadabra.fun/32219-zadnij-fon-dlja-sajta.html') no-repeat center center fixed;
-    background-size: cover;
-    color: #fff;
-}
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body, html {
+            margin: 0; padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Manrope', sans-serif;
+            scroll-behavior: smooth;
+        }
 
-.container {
-    background: rgba(0, 0, 0, 0.85); /* тёмнее */
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    animation: fadeIn 1s ease;
-}
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 20px; left: 50%;
+            transform: translateX(-50%);
+            width: 95%; max-width: 1000px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 25px;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
 
-h1, h2 {
-    margin-bottom: 15px;
-}
+        .logo { 
+            font-weight: 800; 
+            font-size: 1.3rem; 
+            color: var(--accent); 
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-p {
-    font-size: 1.2em;
-}
+        .nav-links a {
+            text-decoration: none; color: var(--text);
+            font-size: 0.9rem; font-weight: 600;
+            margin-left: 20px; cursor: pointer; opacity: 0.6; transition: 0.3s;
+        }
+        .nav-links a:hover { opacity: 1; color: var(--accent); }
 
-a {
-    color: #4da6ff;
-    text-decoration: none;
-    font-weight: bold;
-}
+        /* Контейнер страницы */
+        .page {
+            display: none;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 140px 20px 80px;
+        }
+        .page.active { display: block; animation: fadeIn 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
 
-a:hover {
-    text-decoration: underline;
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-img.avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    margin-bottom: 15px;
-}
+        /* Герой */
+        .hero { text-align: center; margin-bottom: 60px; }
+        .hero h1 { font-size: clamp(2.2rem, 8vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
+        .hero p { font-size: 1.2rem; color: var(--sub-text); max-width: 650px; margin: 0 auto 35px; line-height: 1.6; }
 
-button {
-    background-color: #1e90ff;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 1em;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.3s, background 0.3s;
-}
+        /* Сетка (Bento) */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card { 
+            background: var(--card); 
+            padding: 30px; 
+            border-radius: 32px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
 
-button:hover {
-    background-color: #63b8ff;
-    transform: scale(1.1);
-}
+        .card h3 { margin: 0 0 12px 0; font-weight: 800; font-size: 1.4rem; }
+        .card p { color: var(--sub-text); line-height: 1.6; font-size: 0.95rem; margin: 0; }
 
-.page {
-    display: none;
-    animation: fadeIn 0.7s ease;
-}
+        /* Кнопки */
+        .btn {
+            background: var(--accent); color: #fff;
+            padding: 18px 40px; border-radius: 20px;
+            font-weight: 700; border: none; cursor: pointer;
+            transition: 0.3s; font-size: 1rem;
+            display: inline-block; text-decoration: none;
+        }
+        .btn:hover { transform: scale(1.03); filter: brightness(1.1); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3); }
 
-.active {
-    display: block;
-}
+        /* Медиа блоки */
+        .media-box { 
+            width: 100%; border-radius: 32px; overflow: hidden; 
+            background: #e2e8f0; margin-bottom: 20px; line-height: 0;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .media-box video, .media-box img { width: 100%; height: 100%; object-fit: cover; }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
+        /* Форма */
+        .contact-form { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        input, textarea {
+            width: 100%; background: #f8fafc; border: 2px solid #e2e8f0;
+            padding: 16px; border-radius: 18px;
+            font-family: inherit; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        input:focus, textarea:focus { border-color: var(--accent); background: #fff; }
 
-th, td {
-    border: 1px solid #fff;
-    padding: 10px;
-}
+        /* Список в Миссии */
+        .mission-list { list-style: none; padding: 0; margin: 20px 0; }
+        .mission-list li { 
+            display: flex; align-items: center; gap: 12px; 
+            margin-bottom: 12px; font-weight: 500;
+        }
+        .mission-list li::before { content: '✓'; color: var(--success); font-weight: 800; }
 
-th {
-    background-color: #1e90ff;
-}
-
-td {
-    background-color: rgba(255,255,255,0.08);
-}
-
-iframe {
-    width: 100%;
-    height: 315px;
-    margin: 15px 0;
-    border-radius: 10px;
-    border: none;
-}
-
-.audio-control {
-    margin-top: 20px;
-}
-
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-</style>
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            nav { width: 90%; padding: 10px 20px; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
-
 <body>
-<div class="container">
 
-    <!-- Навигация -->
-    <div>
-        <button onclick="showPage('bio')">Bio</button>
-        <button onclick="showPage('hobbies')">Hobbies</button>
-        <button onclick="showPage('media')">Media</button>
-        <button onclick="showPage('contacts')">Contacts</button>
+<nav>
+    <div class="logo" onclick="showPage('home')">
+        <span>E.C.H.O. Safe Path</span>
     </div>
-
-    <!-- BIO -->
-    <div id="bio" class="page active">
-        <img class="avatar" src="https://i.pinimg.com/736x/14/91/f9/1491f91c4d072ed0705908c59e1cd8e0.jpg">
-        <h1>Bekarys Amanzhol</h1>
-        <p>Student at IQanat School</p>
-        <p><i class="fab fa-telegram"></i> <a href="https://t.me/skj1ns" target="_blank">@skj1ns</a></p>
-        <p><i class="fas fa-envelope"></i> <a href="mailto:amanzhol.bekarys@iqhs.edu.kz">amanzhol.bekarys@iqhs.edu.kz</a></p>
+    <div class="nav-links">
+        <a onclick="showPage('home')">Главная</a>
+        <a onclick="showPage('mission')">О проекте</a>
+        <a onclick="showPage('media')">Медиа</a>
+        <a onclick="showPage('contact')">Контакты</a>
     </div>
+</nav>
 
-    <!-- HOBBIES -->
-    <div id="hobbies" class="page">
-        <h2>My Hobbies & Interests</h2>
-        <table>
-            <tr>
-                <th>Hobby</th>
-                <th>Description</th>
-            </tr>
-            <tr>
-                <td><i class="fas fa-code"></i> Programming</td>
-                <td>Creating websites and learning code</td>
-            </tr>
-            <tr>
-                <td><i class="fas fa-gamepad"></i> Gaming</td>
-                <td>Strategy & competitive games</td>
-            </tr>
-            <tr>
-                <td><i class="fas fa-music"></i> Music</td>
-                <td>Listening and relaxing</td>
-            </tr>
-        </table>
+<div id="home" class="page active">
+    <div class="hero">
+        <h1>Твой город.<br>Твоя безопасность.</h1>
+        <p>Интеллектуальная система защиты школьников: строим маршруты по освещенным улицам и соединяем с точками помощи в один клик.</p>
+        <button class="btn" onclick="showPage('mission')">Узнать как это работает</button>
     </div>
-
-    <!-- MEDIA -->
-    <div id="media" class="page">
-        <h2>Videos I Like</h2>
-
-        <iframe src="https://www.youtube.com/embed/eMhhl1Wq8JA" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/Hu636CO3kI0" allowfullscreen></iframe>
-    </div>
-
-    <!-- CONTACTS -->
-    <div id="contacts" class="page">
-        <h2>Contacts</h2>
-        <p><i class="fab fa-telegram"></i> <a href="https://t.me/skj1ns" target="_blank">@skj1ns</a></p>
-        <p><i class="fas fa-envelope"></i> <a href="mailto:amanzhol.bekarys@iqhs.edu.kz">amanzhol.bekarys@iqhs.edu.kz</a></p>
-
-        <div class="audio-control">
-            <audio id="bgAudio" loop>
-                <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-            </audio>
-            <button onclick="toggleAudio()">Play / Pause Music</button>
+    <div class="grid">
+        <div class="card" style="grid-column: span 2;">
+            <span style="font-size: 2rem;">🏠</span>
+            <h3>Сеть Safe Space</h3>
+            <p>Мы объединяем аптеки, магазины и кофейни в единую сеть доверенных точек, где ребенку всегда окажут помощь и вызовут родителей.</p>
+        </div>
+        <div class="card" style="background: var(--accent); color: #fff; border: none;">
+            <span style="font-size: 2rem;">⚡</span>
+            <h3>0.05 сек</h3>
+            <p style="color: rgba(255,255,255,0.8);">Мгновенный отклик системы при нажатии кнопки тревоги в мобильном приложении.</p>
         </div>
     </div>
+</div>
 
+<div id="mission" class="page">
+    <div class="grid">
+        <div class="card" style="grid-column: span 3;">
+            <h2 style="font-size: 2.2rem; margin: 0 0 20px 0;">Безопасность как стандарт</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">E.C.H.O. Safe Path — инициатива студентов <b>iQanat High School</b>. Мы создаем цифровую среду, которая защищает подростков по пути в школу и домой.</p>
+            
+            <ul class="mission-list">
+                <li><b>Умные маршруты:</b> Алгоритм ИИ выбирает людные и светлые улицы.</li>
+                <li><b>Bluetooth-метки:</b> Трекинг работает даже в зданиях и ТРЦ.</li>
+                <li><b>Спокойствие родителей:</b> Уведомление о прибытии в точку назначения.</li>
+            </ul>
+            
+            <p style="color: var(--accent); font-weight: 800;">Наша цель — ноль инцидентов на пути детей.</p>
+        </div>
+        
+        <div class="card">
+            <h3>Проблема</h3>
+            <p>80% опасных ситуаций со школьниками происходят в неосвещенных зонах или при выборе коротких, но опасных путей.</p>
+        </div>
+        <div class="card">
+            <h3>Решение</h3>
+            <p>Мобильное приложение-навигатор, которое "ведет" ребенка только по проверенным и безопасным участкам.</p>
+        </div>
+        <div class="card">
+            <h3>Результат</h3>
+            <p>Рост уверенности детей и снижение уровня стресса у родителей на 88% по результатам наших опросов.</p>
+        </div>
+    </div>
+</div>
+
+<div id="media" class="page">
+    <div class="media-box" style="aspect-ratio: 16/9; background: #000;">
+        <video controls poster="1vUmL.jpg">
+            <source src="IMG_9598.MP4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+    <div class="grid">
+        <div class="media-box" style="aspect-ratio: 1/1;"><img src="1vUmL.jpg" alt="Safe Path 1"></div>
+        <div class="media-box" style="aspect-ratio: 1/1;"><img src="8woEd.jpg" alt="Safe Path 2"></div>
+        <div class="media-box" style="aspect-ratio: 1/1;"><img src="UUB0i.jpg" alt="Safe Path 3"></div>
+    </div>
+</div>
+
+<div id="contact" class="page">
+    <div class="grid">
+        <div class="card" style="grid-column: span 2;">
+            <h3>Свяжитесь с нами</h3>
+            <p>Станьте партнером проекта или задайте свой вопрос команде.</p>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Спасибо! Мы получили ваше сообщение.');">
+                <input type="text" placeholder="Ваше имя" required>
+                <input type="email" placeholder="Ваш Email" required>
+                <textarea placeholder="Как мы можем вам помочь?" rows="5" required></textarea>
+                <button type="submit" class="btn">Отправить заявку</button>
+            </form>
+        </div>
+        <div class="card">
+            <h3>Мы в сети</h3>
+            <p style="margin-bottom: 25px;">Следите за развитием Safe Path в реальном времени.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <a href="https://t.me/IQEchoBot" target="_blank" style="text-decoration: none; color: #0088cc; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                    <span>🔵</span> Telegram Bot
+                </a>
+                <a href="https://instagram.com/echo_safepath" target="_blank" style="text-decoration: none; color: #e1306c; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                    <span>📸</span> Instagram
+                </a>
+                <a href="https://wa.me/77021922700" target="_blank" style="text-decoration: none; color: #25d366; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                    <span>💬</span> WhatsApp
+                </a>
+            </div>
+            
+            <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                <p style="font-size: 0.8rem;">iQanat High School, Бурабай</p>
+                <p style="font-size: 0.8rem; margin-top: 5px;">Проект: E.C.H.O. Team</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-}
+    function showPage(pageId) {
+        // Убираем активный класс у всех страниц
+        document.querySelectorAll('.page').forEach(p => {
+            p.classList.remove('active');
+        });
+        
+        // Показываем нужную страницу
+        const activePage = document.getElementById(pageId);
+        if(activePage) {
+            activePage.classList.add('active');
+        }
 
-const audio = document.getElementById('bgAudio');
-function toggleAudio() {
-    audio.paused ? audio.play() : audio.pause();
-}
+        // Прокрутка наверх
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Обновление активной ссылки в меню (опционально)
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.style.opacity = "0.6";
+            if(link.innerText.toLowerCase().includes(pageId === 'home' ? 'главная' : '')) {
+                link.style.opacity = "1";
+            }
+        });
+    }
 </script>
+
 </body>
 </html>
-
-
